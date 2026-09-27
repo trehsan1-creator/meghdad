@@ -21,11 +21,22 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
+<script>
+/* اگر app.js به هر دلیلی اجرا نشد (خطا، فیلتر، کش خراب)، بعد از ۶ ثانیه
+   کلاس js برداشته می‌شود و دعوت‌نامه به‌شکل یک صفحهٔ ساده و کامل دیده می‌شود. */
+document.documentElement.classList.add("js");
+window.addEventListener("load", function () {
+  setTimeout(function () {
+    if (!window.__STORY_READY__) document.documentElement.classList.remove("js");
+  }, 6000);
+});
+</script>
+
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/vazirmatn.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/nastaliq.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/seq-child-1.webp" as="image" fetchpriority="high">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=2">
 </head>
 
 <body class="is-booting">
@@ -318,7 +329,7 @@
 
 <audio id="music" preload="none" loop playsinline></audio>
 
-<script src="config.js"></script>
-<script src="app.js"></script>
+<script src="config.js?v=2"></script>
+<script src="app.js?v=2"></script>
 </body>
 </html>

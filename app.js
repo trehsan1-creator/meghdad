@@ -879,4 +879,7 @@
 
   // اگر کاربر با لنگر مستقیم آمده
   if (location.hash === "#invite") { begin(true); }
+
+  /* به نگهبانِ داخل index.html خبر می‌دهیم که موتور قصه سالم بالا آمد */
+  window.__STORY_READY__ = true;
 })();

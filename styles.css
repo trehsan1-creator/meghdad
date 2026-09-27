@@ -139,7 +139,8 @@ p,h1,h2,h3 { margin:0; }
    و هرگز نامرئی نمی‌شود. */
 .gilt { color:var(--gold-2); }
 @supports ((-webkit-background-clip:text) or (background-clip:text)) {
-  .gilt {
+  .gilt,
+  .gilt > * {
     background:var(--metal);
     -webkit-background-clip:text;
     background-clip:text;
@@ -221,7 +222,7 @@ p,h1,h2,h3 { margin:0; }
 .overture__eyebrow {
   font-size:var(--f-xs); font-weight:500; color:var(--gold-3);
   margin-bottom:var(--s5);
-  opacity:0; animation:riseIn .9s var(--ease-out) .15s forwards;
+  animation:riseIn .9s var(--ease-out) .15s backwards;
 }
 .overture__eyebrow::before,
 .overture__eyebrow::after {
@@ -235,25 +236,25 @@ p,h1,h2,h3 { margin:0; }
 .monogram svg { width:100%; height:auto; overflow:visible; }
 .monogram__ring {
   stroke:var(--gold-3); stroke-width:.9; opacity:.62;
-  stroke-dasharray:490; stroke-dashoffset:490;
-  animation:draw 2.2s var(--ease-out) .2s forwards;
+  stroke-dasharray:490; stroke-dashoffset:0;
+  animation:draw1 2.2s var(--ease-out) .2s backwards;
 }
-.monogram__ring--2 { stroke-dasharray:402; stroke-dashoffset:402; animation-delay:.5s; opacity:.3; }
+.monogram__ring--2 { stroke-dasharray:402; stroke-dashoffset:0; opacity:.3; animation-name:draw2; animation-delay:.5s; }
 .monogram__petal {
-  stroke:var(--gold-4); stroke-width:.8; fill:none; opacity:0;
-  animation:fadeIn 1.4s var(--ease-out) .9s forwards;
+  stroke:var(--gold-4); stroke-width:.8; fill:none;
+  animation:fadeIn 1.4s var(--ease-out) .9s backwards;
 }
-.monogram__spark { fill:var(--gold-2); opacity:0; animation:sparkIn 1.2s var(--ease-out) 1.15s forwards; }
+.monogram__spark { fill:var(--gold-2); opacity:.95; animation:sparkIn 1.2s var(--ease-out) 1.15s backwards; }
 .monogram__initial {
   font-family:"Nastaliq",serif; font-size:44px; fill:var(--gold-2);
-  opacity:0; animation:fadeIn 1.2s var(--ease-out) 1.3s forwards;
+  animation:fadeIn 1.2s var(--ease-out) 1.3s backwards;
 }
 
 .overture__names {
   font-size:var(--f-nast); font-weight:500; line-height:1.85;
   display:flex; flex-direction:column; align-items:center; gap:0;
   margin-bottom:var(--s2);
-  opacity:0; animation:riseIn 1.1s var(--ease-out) .8s forwards;
+  animation:riseIn 1.1s var(--ease-out) .8s backwards;
 }
 .overture__names .amp { font-size:var(--f-xl); margin-block:calc(-1 * var(--s2)); }
 
@@ -261,7 +262,7 @@ p,h1,h2,h3 { margin:0; }
   font-size:var(--f-sm); font-weight:400;
   color:var(--fg-mute);
   margin-bottom:var(--s4);
-  opacity:0; animation:riseIn 1s var(--ease-out) .95s forwards;
+  animation:riseIn 1s var(--ease-out) .95s backwards;
 }
 
 /* بیت آغازین به خط نستعلیق — هر مصرع یک خط */
@@ -271,7 +272,7 @@ p,h1,h2,h3 { margin:0; }
   font-family:"Nastaliq","Vazirmatn",serif;
   font-size:21px; line-height:2.6; color:var(--fg-soft);
   text-align:center; text-wrap:balance;
-  opacity:0; animation:riseIn 1s var(--ease-out) 1.05s forwards;
+  animation:riseIn 1s var(--ease-out) 1.05s backwards;
 }
 .overture__poem span { display:block; }
 .overture__poem::before,
@@ -284,7 +285,7 @@ p,h1,h2,h3 { margin:0; }
 
 .overture__guest {
   font-size:var(--f-sm); color:var(--gold-2); margin-top:var(--s4);
-  opacity:0; animation:riseIn .8s var(--ease-out) 1.15s forwards;
+  animation:riseIn .8s var(--ease-out) 1.15s backwards;
 }
 
 .loader {
@@ -306,7 +307,7 @@ p,h1,h2,h3 { margin:0; }
   display:grid; place-items:center;
   width:100%; min-height:58px; padding:var(--s3) var(--s5);
   color:#1A1008; font-family:inherit; font-size:var(--f-md); font-weight:700;
-  opacity:0; animation:riseIn .9s var(--ease-out) 1.3s forwards;
+  animation:riseIn .9s var(--ease-out) 1.3s backwards;
   transition:transform .18s var(--ease), opacity .3s;
 }
 .startbtn[disabled] { opacity:.3; pointer-events:none; }
@@ -345,10 +346,10 @@ p,h1,h2,h3 { margin:0; }
   max-width:var(--shell); margin-inline:auto;
   padding:calc(var(--safe-t) + var(--s2)) var(--s3) var(--s3);
   background:linear-gradient(180deg, rgba(8,4,8,.92) 12%, rgba(8,4,8,.55) 62%, transparent);
-  opacity:0; transform:translateY(-14px);
   transition:opacity .7s var(--ease), transform .7s var(--ease);
 }
-body.is-live .topbar { opacity:1; transform:none; }
+html.js .topbar { opacity:0; transform:translateY(-14px); }
+html.js body.is-live .topbar { opacity:1; transform:none; }
 
 .iconbtn {
   appearance:none; border:1px solid var(--line); background:rgba(24,14,20,.55);
@@ -380,9 +381,10 @@ body.is-live .topbar { opacity:1; transform:none; }
   position:fixed; z-index:50; top:50%; inset-inline-start:2px;
   transform:translateY(-50%);
   display:flex; flex-direction:column;
-  opacity:0; transition:opacity .6s var(--ease) .3s;
+  transition:opacity .6s var(--ease) .3s;
 }
-body.is-live .rail { opacity:1; }
+html.js .rail { opacity:0; }
+html.js body.is-live .rail { opacity:1; }
 body.at-end .rail { opacity:.35; }
 
 .rail__dot {
@@ -411,8 +413,9 @@ main { position:relative; z-index:2; max-width:var(--shell); margin-inline:auto;
 .act--invite { padding:var(--s8) var(--s5) calc(var(--safe-b) + var(--s8)); }
 
 /* ---- hero ---- */
-.hero { position:relative; text-align:center; opacity:0; transform:translateY(20px); transition:opacity 1s var(--ease-out) .2s, transform 1s var(--ease-out) .2s; }
-body.is-live .hero { opacity:1; transform:none; }
+.hero { position:relative; text-align:center; transition:opacity 1s var(--ease-out) .2s, transform 1s var(--ease-out) .2s; }
+html.js .hero { opacity:0; transform:translateY(20px); }
+html.js body.is-live .hero { opacity:1; transform:none; }
 
 .eyebrow {
   font-size:var(--f-xs); font-weight:500; color:var(--gold-3);
@@ -840,12 +843,22 @@ body.is-live .hero { opacity:1; transform:none; }
 
 
 /* ---------------------------------------------------------------- reveal on scroll */
-[data-reveal] {
+html.js [data-reveal] {
   opacity:0; transform:translateY(26px);
   transition:opacity .9s var(--ease-out), transform .9s var(--ease-out);
   transition-delay:var(--rd,0s);
 }
-[data-reveal].is-in { opacity:1; transform:none; }
+html.js [data-reveal].is-in { opacity:1; transform:none; }
+
+/* ---------------------------------------------------------------- بدون جاوااسکریپت
+   اگر به هر دلیلی app.js اجرا نشد، مهمان نباید صفحهٔ خالی ببیند:
+   پردهٔ آغازین کنار می‌رود و قصه به‌صورت یک صفحهٔ ساده خوانده می‌شود. */
+html:not(.js) .overture { display:none; }
+html:not(.js) body { overflow:auto; height:auto; }
+html:not(.js) .caption { opacity:1; transform:none; }
+html:not(.js) .caption--center { transform:translateY(-50%); }
+html:not(.js) .cell--0 { opacity:1; visibility:visible; transform:none; }
+html:not(.js) .bars i { height:14px; }
 
 /* ---------------------------------------------------------------- dock */
 .dock {
@@ -855,10 +868,10 @@ body.is-live .hero { opacity:1; transform:none; }
   display:flex; align-items:center; gap:var(--s3);
   padding:var(--s4) var(--s4) calc(var(--safe-b) + var(--s4));
   background:linear-gradient(180deg, transparent, rgba(6,3,7,.96) 46%);
-  opacity:0; transform:translateY(18px);
   transition:opacity .6s var(--ease), transform .6s var(--ease);
 }
-body.is-live .dock { opacity:1; transform:none; }
+html.js .dock { opacity:0; transform:translateY(18px); }
+html.js body.is-live .dock { opacity:1; transform:none; }
 body.at-end .dock { opacity:0; transform:translateY(18px); pointer-events:none; }
 
 .dock__play {
@@ -913,10 +926,11 @@ body.at-end .dock { opacity:0; transform:translateY(18px); pointer-events:none; 
 .toast.is-on { opacity:1; transform:none; }
 
 /* ---------------------------------------------------------------- keyframes */
-@keyframes draw    { to { stroke-dashoffset:0; } }
-@keyframes fadeIn  { to { opacity:1; } }
-@keyframes sparkIn { from { opacity:0; transform:scale(.6) rotate(-25deg); transform-origin:center; } to { opacity:.95; transform:none; } }
-@keyframes riseIn  { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+@keyframes draw1   { from { stroke-dashoffset:490; } }
+@keyframes draw2   { from { stroke-dashoffset:402; } }
+@keyframes fadeIn  { from { opacity:0; } }
+@keyframes sparkIn { from { opacity:0; transform:scale(.6) rotate(-25deg); transform-origin:center; } }
+@keyframes riseIn  { from { opacity:0; transform:translateY(18px); } }
 @keyframes pulse   { 0%,100% { box-shadow:0 12px 34px -12px rgba(224,178,104,.55), inset 0 1px 0 rgba(255,255,255,.55), 0 0 0 0 rgba(230,196,137,.4); } 50% { box-shadow:0 12px 34px -12px rgba(224,178,104,.55), inset 0 1px 0 rgba(255,255,255,.55), 0 0 0 16px rgba(230,196,137,0); } }
 @keyframes sheen   { 0% { transform:translateX(-160%) skewX(-18deg); } 55%,100% { transform:translateX(320%) skewX(-18deg); } }
 @keyframes cue     { 0%,100% { opacity:.25; transform:scaleY(.6); } 50% { opacity:1; transform:scaleY(1); } }
