@@ -58,6 +58,15 @@
     if (b) b.textContent = text(c.body);
   });
 
+  /* مهر پایانی: حرف اول نام‌ها، به خط نستعلیق */
+  (function () {
+    var seal = $("#sealInitials");
+    if (!seal) return;
+    var g = text(cfg.groomName), b = text(cfg.brideName);
+    if (!g && !b) return;
+    seal.textContent = [g.charAt(0), b.charAt(0)].filter(Boolean).join(" ");
+  })();
+
   /* ------------------------------------------------------------ guest personalization */
   var guestName = "";
   try {
@@ -333,18 +342,20 @@
       ents.forEach(function (en) {
         var a = en.target.__act;
         if (!a || !a.isStory) return;
-        if (en.intersectionRatio >= 0.5 && !a.playing) {
+        /* آستانه عمداً پایین است: صحنهٔ فصل بعد تا قبل از اینکه نصف پرده را
+           بگیرد سیاه می‌ماند و همان سیاهی، حس «پرش» در اسکرول می‌داد. */
+        if (en.intersectionRatio >= 0.14 && !a.playing) {
           a.playing = true;
           a.t0 = performance.now();
           a.liveIndex = -1;
           if (a.stage) a.stage.classList.add("is-playing");
-        } else if (en.intersectionRatio < 0.2 && a.playing) {
+        } else if (en.intersectionRatio < 0.04 && a.playing) {
           a.playing = false;
           if (a.stage) a.stage.classList.remove("is-playing");
         }
       });
       startLoop();
-    }, { threshold: [0, 0.2, 0.5, 0.8, 1] });
+    }, { threshold: [0, 0.04, 0.14, 0.3, 0.6, 1] });
     acts.forEach(function (a) { if (a.isStory) io.observe(a.el); });
   } else {
     acts.forEach(function (a) {
@@ -472,10 +483,22 @@
     var h = Math.floor((s % 86400) / 3600);
     var m = Math.floor((s % 3600) / 60);
     var sec = s % 60;
-    if (cdEls.days)    cdEls.days.textContent    = fa(pad(d));
-    if (cdEls.hours)   cdEls.hours.textContent   = fa(pad(h));
-    if (cdEls.minutes) cdEls.minutes.textContent = fa(pad(m));
-    if (cdEls.seconds) cdEls.seconds.textContent = fa(pad(sec));
+    setUnit(cdEls.days,    fa(pad(d)));
+    setUnit(cdEls.hours,   fa(pad(h)));
+    setUnit(cdEls.minutes, fa(pad(m)));
+    setUnit(cdEls.seconds, fa(pad(sec)));
+  }
+
+  /* هر رقم که عوض می‌شود یک تکان کوتاه می‌خورد — حس عقربهٔ ساعت */
+  function setUnit(el, val) {
+    if (!el || el.textContent === val) return;
+    el.textContent = val;
+    if (reduced) return;
+    var box = el.parentNode;
+    if (!box || !box.classList) return;
+    box.classList.remove("is-tick");
+    void box.offsetWidth;
+    box.classList.add("is-tick");
   }
   renderCountdown();
   setInterval(renderCountdown, 1000);
@@ -594,7 +617,7 @@
           markOn();
           var t0 = performance.now();
           requestAnimationFrame(function fade(now) {
-            var k = Math.min(1, (now - t0) / 1800);
+            var k = clamp((now - t0) / 1800, 0, 1);
             audio.volume = 0.5 * k;
             if (k < 1) requestAnimationFrame(fade);
           });
@@ -810,6 +833,29 @@
       showDone(saved.attendance);
     }
   } catch (e) {}
+
+  /* ------------------------------------------------------------ reveal on scroll
+     بخش دعوت‌نامه یک‌جا جلوی چشم آوار نمی‌شود؛ هر قطعه با اسکرول
+     نرم بالا می‌آید. همین جزئیات است که حس «تمیز و لاکچری» می‌سازد. */
+  var revealables = $$("[data-reveal]");
+  if (revealables.length) {
+    if (reduced || !("IntersectionObserver" in window)) {
+      revealables.forEach(function (el) { el.classList.add("is-in"); });
+    } else {
+      revealables.forEach(function (el, i) {
+        el.style.setProperty("--rd", (i % 3) * 0.09 + "s");
+      });
+      var rio = new IntersectionObserver(function (ents) {
+        ents.forEach(function (en) {
+          if (en.intersectionRatio > 0.08) {
+            en.target.classList.add("is-in");
+            rio.unobserve(en.target);
+          }
+        });
+      }, { threshold: [0, 0.08, 0.2], rootMargin: "0px 0px -8% 0px" });
+      revealables.forEach(function (el) { rio.observe(el); });
+    }
+  }
 
   /* ------------------------------------------------------------ wiring */
   window.addEventListener("scroll", update, { passive: true });

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0B0705">
+<meta name="theme-color" content="#050308">
 <meta name="color-scheme" content="dark">
 <meta name="format-detection" content="telephone=no">
 <meta name="mobile-web-app-capable" content="yes">
@@ -22,13 +22,15 @@
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="preload" href="assets/noto-fa.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/vazirmatn.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/nastaliq.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/seq-child-1.webp" as="image" fetchpriority="high">
 <link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="is-booting">
 
+<div class="glow" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 <div class="vignette" aria-hidden="true"></div>
 
@@ -41,17 +43,27 @@
       <svg viewBox="0 0 200 200" fill="none">
         <circle class="monogram__ring" cx="100" cy="100" r="78"/>
         <circle class="monogram__ring monogram__ring--2" cx="100" cy="100" r="64"/>
-        <path class="monogram__spark" d="M100 46 L104 92 L150 96 L104 100 L100 146 L96 100 L50 96 L96 92 Z"/>
+        <g class="monogram__petal">
+          <path d="M100 28c-9 12-9 22 0 30 9-8 9-18 0-30Z"/>
+          <path d="M100 172c-9-12-9-22 0-30 9 8 9 18 0 30Z"/>
+          <path d="M28 100c12-9 22-9 30 0-8 9-18 9-30 0Z"/>
+          <path d="M172 100c-12-9-22-9-30 0 8 9 18 9 30 0Z"/>
+          <path d="M62 62c14 2 21 9 23 23-14-2-21-9-23-23Z"/>
+          <path d="M138 62c-14 2-21 9-23 23 14-2 21-9 23-23Z"/>
+          <path d="M62 138c14-2 21-9 23-23-14 2-21 9-23 23Z"/>
+          <path d="M138 138c-14-2-21-9-23-23 14 2 21 9 23 23Z"/>
+        </g>
+        <path class="monogram__spark" d="M100 58 L103.6 96.4 L142 100 L103.6 103.6 L100 142 L96.4 103.6 L58 100 L96.4 96.4 Z"/>
       </svg>
     </div>
 
-    <h1 class="overture__names">
+    <h1 class="overture__names nastaliq gilt">
       <span data-config="groomName">نام داماد</span>
       <span class="amp" aria-hidden="true">&amp;</span>
       <span data-config="brideName">نام عروس</span>
     </h1>
 
-    <p class="overture__surnames">یوسفی‌پورـ احمدی</p>
+    <p class="overture__surnames">یوسفی‌پور &mdash; احمدی</p>
 
     <p class="overture__poem">
       <span>اشتیاقی که به دیدار تو دارد دل من</span>
@@ -100,13 +112,13 @@
   <section class="act act--hero" id="act-0" data-no="۰۰" data-name="آغاز">
     <div class="hero">
       <p class="eyebrow">با افتخار دعوتتان می‌کنیم</p>
-      <h2 class="hero__names">
+      <h2 class="hero__names nastaliq gilt">
         <span data-config="groomName">نام داماد</span>
         <span class="amp" aria-hidden="true">&amp;</span>
         <span data-config="brideName">نام عروس</span>
       </h2>
       <p class="hero__lede">هر پیوندی، پیش از آنکه جشن باشد، یک قصه است.</p>
-      <p class="hero__date" data-config="dateLabel">جمعه ۶ شهریور ۱۴۰۵</p>
+      <p class="hero__date"><span data-config="dateLabel">جمعه ۶ شهریور ۱۴۰۵</span></p>
       <div class="scrollcue" aria-hidden="true"><i></i><span>ورق بزنید</span></div>
     </div>
   </section>
@@ -182,22 +194,28 @@
   <section class="act act--invite" id="act-5" data-no="۰۵" data-name="دعوت">
     <div class="invite">
 
-      <div class="crest" aria-hidden="true">
-        <svg viewBox="0 0 140 32" fill="none"><path d="M4 16h44M92 16h44"/><path d="M70 5l4.4 11.6L86 21l-11.6 4.4L70 37l-4.4-11.6L54 21l11.6-4.4z"/></svg>
+      <div class="seal" aria-hidden="true" data-reveal>
+        <svg viewBox="0 0 132 132" fill="none">
+          <circle class="seal__ring" cx="66" cy="66" r="62"/>
+          <circle class="seal__ring seal__ring--dash" cx="66" cy="66" r="55"/>
+          <circle class="seal__disc" cx="66" cy="66" r="48"/>
+          <text class="seal__text" id="sealInitials" x="66" y="70" text-anchor="middle">م ه</text>
+        </svg>
       </div>
 
-      <p class="eyebrow">پایان قصه، آغاز جشن</p>
-      <h2 class="invite__title">منتظر دیدنتان هستیم</h2>
+      <p class="eyebrow" data-reveal>پایان قصه، آغاز جشن</p>
+      <h2 class="invite__title nastaliq gilt" data-reveal>منتظر دیدنتان هستیم</h2>
+      <p class="invite__sub" data-reveal>حضور شما، زیباترین بخش این قصه است</p>
 
-      <div class="countdown" id="countdown" aria-label="زمان باقی‌مانده تا مراسم">
+      <div class="countdown" id="countdown" aria-label="زمان باقی‌مانده تا مراسم" data-reveal>
         <div class="unit"><b data-count="days">۰۰</b><span>روز</span></div>
         <div class="unit"><b data-count="hours">۰۰</b><span>ساعت</span></div>
         <div class="unit"><b data-count="minutes">۰۰</b><span>دقیقه</span></div>
         <div class="unit"><b data-count="seconds">۰۰</b><span>ثانیه</span></div>
       </div>
-      <p class="countdown__hint" id="countdownHint">تا آغاز جشن ما</p>
+      <p class="countdown__hint" id="countdownHint" data-reveal>تا آغاز جشن ما</p>
 
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="row">
           <span class="row__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
           <span class="row__text"><b data-config="dateLabel">جمعه ۶ شهریور ۱۴۰۵</b><small data-config="timeLabel">از ساعت ۱۸ تا ۲۳</small></span>
@@ -217,7 +235,7 @@
         </div>
       </div>
 
-      <form class="card card--rsvp" id="rsvpForm" novalidate>
+      <form class="card card--rsvp" id="rsvpForm" novalidate data-reveal>
         <h3 class="card__title">پاسخ به دعوت</h3>
         <p class="card__lede">خواهشمند است حضور ارزشمند خود را پیشاپیش اعلام فرمایید تا افتخار میزبانی شما را به بهترین شکل فراهم آوریم.</p>
 
@@ -264,7 +282,19 @@
         <button class="textbtn" id="rsvpReset" type="button">ویرایش پاسخ</button>
       </div>
 
-      <p class="signature">این صفحه با عشق ساخته شده است</p>
+      <div class="crest crest--end" aria-hidden="true" data-reveal>
+        <svg viewBox="0 0 200 54" fill="none">
+          <path d="M6 27h52M142 27h52"/>
+          <path d="M58 27c4-7 10-7 14 0-4 7-10 7-14 0Z"/>
+          <path d="M142 27c-4-7-10-7-14 0 4 7 10 7 14 0Z"/>
+          <path d="M84 27c6-10 10-15 16-19 6 4 10 9 16 19-6 10-10 15-16 19-6-4-10-9-16-19Z"/>
+          <path class="solid" d="M100 16.5l2.6 8.4 8.4 2.6-8.4 2.6-2.6 8.4-2.6-8.4-8.4-2.6 8.4-2.6z"/>
+          <circle cx="70" cy="27" r="1.6" class="solid"/>
+          <circle cx="130" cy="27" r="1.6" class="solid"/>
+        </svg>
+      </div>
+
+      <p class="signature" data-reveal>این صفحه با عشق ساخته شده است</p>
     </div>
   </section>
 </main>
