@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B0705">
+<meta name="color-scheme" content="dark">
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<title>قصه‌ی ما · دعوت‌نامه‌ی عروسی</title>
+<meta name="description" content="یک قصه‌ی کوتاه، و یک دعوت صمیمانه. لمس کنید تا آغاز شود.">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fa_IR">
+<meta property="og:title" content="قصه‌ی ما · دعوت‌نامه‌ی عروسی">
+<meta property="og:description" content="یک قصه‌ی کوتاه، و یک دعوت صمیمانه. لمس کنید تا آغاز شود.">
+<meta property="og:image" content="assets/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/noto-fa.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/seq-child-1.webp" as="image" fetchpriority="high">
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="is-booting">
+
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<!-- ============================ OVERTURE ============================ -->
+<div class="overture" id="overture">
+  <div class="overture__inner">
+    <p class="overture__eyebrow">دعوت‌نامه‌ی عروسی</p>
+
+    <div class="monogram" aria-hidden="true">
+      <svg viewBox="0 0 200 200" fill="none">
+        <circle class="monogram__ring" cx="100" cy="100" r="78"/>
+        <circle class="monogram__ring monogram__ring--2" cx="100" cy="100" r="64"/>
+        <path class="monogram__spark" d="M100 46 L104 92 L150 96 L104 100 L100 146 L96 100 L50 96 L96 92 Z"/>
+      </svg>
+    </div>
+
+    <h1 class="overture__names">
+      <span data-config="groomName">نام داماد</span>
+      <span class="amp" aria-hidden="true">&amp;</span>
+      <span data-config="brideName">نام عروس</span>
+    </h1>
+
+    <p class="overture__surnames">یوسفی‌پورـ احمدی</p>
+
+    <p class="overture__poem">
+      <span>اشتیاقی که به دیدار تو دارد دل من</span>
+      <span>دل من داند و من دانم و دل داند و من</span>
+    </p>
+
+    <p class="overture__guest" id="guestGreeting" hidden></p>
+
+    <div class="loader" id="loaderBar" role="progressbar" aria-label="در حال آماده‌سازی" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
+
+    <button class="startbtn" id="startButton" type="button" disabled>
+      <span class="startbtn__ring" aria-hidden="true"></span>
+      <span class="startbtn__label">لمس کنید تا قصه آغاز شود</span>
+    </button>
+
+    <button class="textbtn" id="overtureSkip" type="button">مستقیم برو به جزئیات مراسم</button>
+  </div>
+</div>
+
+<!-- ============================ TOP BAR ============================ -->
+<header class="topbar" id="topbar">
+  <button class="iconbtn" id="musicButton" type="button" aria-pressed="false" aria-label="پخش موسیقی" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18V6L7.5 9.5H4z"/><path class="wave" d="M15.5 9a4 4 0 0 1 0 6"/><path class="mute" d="M16 9.5l4 5M20 9.5l-4 5"/></svg>
+  </button>
+
+  <p class="nowplaying"><b id="chapterNo">۰۰</b><span id="chapterName">آغاز</span></p>
+
+  <button class="iconbtn" id="shareButton" type="button" aria-label="هم‌رسانی دعوت‌نامه">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M12 4L8.5 7.5M12 4l3.5 3.5M5 13v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg>
+  </button>
+</header>
+
+<!-- ============================ CHAPTER RAIL ============================ -->
+<nav class="rail" id="rail" aria-label="فصل‌های قصه">
+  <button type="button" class="rail__dot" data-goto="0" aria-label="فصل آغاز"><i></i></button>
+  <button type="button" class="rail__dot" data-goto="1" aria-label="فصل کودکی"><i></i></button>
+  <button type="button" class="rail__dot" data-goto="2" aria-label="فصل مسیر"><i></i></button>
+  <button type="button" class="rail__dot" data-goto="3" aria-label="فصل آشنایی"><i></i></button>
+  <button type="button" class="rail__dot" data-goto="4" aria-label="فصل پیوند"><i></i></button>
+  <button type="button" class="rail__dot" data-goto="5" aria-label="دعوت‌نامه"><i></i></button>
+</nav>
+
+<!-- ============================ STORY ============================ -->
+<main id="story">
+
+  <section class="act act--hero" id="act-0" data-no="۰۰" data-name="آغاز">
+    <div class="hero">
+      <p class="eyebrow">با افتخار دعوتتان می‌کنیم</p>
+      <h2 class="hero__names">
+        <span data-config="groomName">نام داماد</span>
+        <span class="amp" aria-hidden="true">&amp;</span>
+        <span data-config="brideName">نام عروس</span>
+      </h2>
+      <p class="hero__lede">هر پیوندی، پیش از آنکه جشن باشد، یک قصه است.</p>
+      <p class="hero__date" data-config="dateLabel">جمعه ۶ شهریور ۱۴۰۵</p>
+      <div class="scrollcue" aria-hidden="true"><i></i><span>ورق بزنید</span></div>
+    </div>
+  </section>
+
+  <section class="act act--story" id="act-1" data-no="۰۱" data-name="کودکی" data-chapter="0" data-grade="warm">
+    <div class="stage">
+      <div class="reel">
+        <img class="cell cell--0" src="assets/seq-child-1.webp" alt="تصویری از کودکی" width="900" height="1600" decoding="async" fetchpriority="high">
+        <img class="cell cell--1" src="assets/seq-child-2.webp" alt="" aria-hidden="true" width="900" height="1600" decoding="async">
+        <img class="cell cell--2" src="assets/seq-child-3.webp" alt="" aria-hidden="true" width="900" height="1600" decoding="async">
+      </div>
+      <div class="lightcut" aria-hidden="true"></div>
+      <div class="bars" aria-hidden="true"><i></i><i></i></div>
+      <div class="caption caption--bottom">
+        <p class="caption__kicker" data-chapter-kicker></p>
+        <h3 class="caption__title" data-chapter-title></h3>
+        <p class="caption__body" data-chapter-body></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="act act--story" id="act-2" data-no="۰۲" data-name="مسیر" data-chapter="1" data-grade="cool">
+    <div class="stage">
+      <div class="reel">
+        <img class="cell cell--0" src="assets/seq-career-1.webp" alt="تصویری از مسیر زندگی" width="900" height="1600" loading="lazy" decoding="async">
+        <img class="cell cell--1" src="assets/seq-career-2.webp" alt="" aria-hidden="true" width="900" height="1600" loading="lazy" decoding="async">
+        <img class="cell cell--2" src="assets/seq-career-3.webp" alt="" aria-hidden="true" width="900" height="1600" loading="lazy" decoding="async">
+      </div>
+      <div class="lightcut" aria-hidden="true"></div>
+      <div class="bars" aria-hidden="true"><i></i><i></i></div>
+      <div class="caption caption--center">
+        <p class="caption__kicker" data-chapter-kicker></p>
+        <h3 class="caption__title" data-chapter-title></h3>
+        <p class="caption__body" data-chapter-body></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="act act--story" id="act-3" data-no="۰۳" data-name="آشنایی" data-chapter="2" data-grade="rose">
+    <div class="stage">
+      <div class="reel">
+        <img class="cell cell--0" src="assets/seq-meeting-1.webp" alt="تصویری از لحظه‌ی آشنایی" width="900" height="1600" loading="lazy" decoding="async">
+        <img class="cell cell--1" src="assets/seq-meeting-2.webp" alt="" aria-hidden="true" width="900" height="1600" loading="lazy" decoding="async">
+        <img class="cell cell--2" src="assets/seq-meeting-3.webp" alt="" aria-hidden="true" width="900" height="1600" loading="lazy" decoding="async">
+      </div>
+      <div class="lightcut" aria-hidden="true"></div>
+      <div class="petals" aria-hidden="true"></div>
+      <div class="bars" aria-hidden="true"><i></i><i></i></div>
+      <div class="caption caption--bottom">
+        <p class="caption__kicker" data-chapter-kicker></p>
+        <h3 class="caption__title" data-chapter-title></h3>
+        <p class="caption__body" data-chapter-body></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="act act--story act--finale" id="act-4" data-no="۰۴" data-name="پیوند" data-chapter="3" data-grade="gold">
+    <div class="stage">
+      <div class="reel reel--single">
+        <img class="cell cell--0" src="assets/seq-wedding-master.webp" alt="تصویر عروس و داماد" width="900" height="1600" loading="lazy" decoding="async">
+      </div>
+      <div class="sparkles" aria-hidden="true"></div>
+      <div class="bars" aria-hidden="true"><i></i><i></i></div>
+      <div class="caption caption--bottom">
+        <p class="caption__kicker" data-chapter-kicker></p>
+        <h3 class="caption__title" data-chapter-title></h3>
+        <p class="caption__body" data-chapter-body></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ INVITATION ============================ -->
+  <section class="act act--invite" id="act-5" data-no="۰۵" data-name="دعوت">
+    <div class="invite">
+
+      <div class="crest" aria-hidden="true">
+        <svg viewBox="0 0 140 32" fill="none"><path d="M4 16h44M92 16h44"/><path d="M70 5l4.4 11.6L86 21l-11.6 4.4L70 37l-4.4-11.6L54 21l11.6-4.4z"/></svg>
+      </div>
+
+      <p class="eyebrow">پایان قصه، آغاز جشن</p>
+      <h2 class="invite__title">منتظر دیدنتان هستیم</h2>
+
+      <div class="countdown" id="countdown" aria-label="زمان باقی‌مانده تا مراسم">
+        <div class="unit"><b data-count="days">۰۰</b><span>روز</span></div>
+        <div class="unit"><b data-count="hours">۰۰</b><span>ساعت</span></div>
+        <div class="unit"><b data-count="minutes">۰۰</b><span>دقیقه</span></div>
+        <div class="unit"><b data-count="seconds">۰۰</b><span>ثانیه</span></div>
+      </div>
+      <p class="countdown__hint" id="countdownHint">تا آغاز جشن ما</p>
+
+      <div class="card">
+        <div class="row">
+          <span class="row__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+          <span class="row__text"><b data-config="dateLabel">جمعه ۶ شهریور ۱۴۰۵</b><small data-config="timeLabel">از ساعت ۱۸ تا ۲۳</small></span>
+        </div>
+        <div class="row">
+          <span class="row__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></span>
+          <span class="row__text"><b data-config="venue">نام محل برگزاری</b><small data-config="address">نشانی کامل مراسم</small></span>
+        </div>
+
+        <div class="card__actions">
+          <a class="btn btn--ghost" id="mapButton" href="#" target="_blank" rel="noopener" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4L3 6.5v13L9 17l6 3 6-2.5v-13L15 7 9 4z"/><path d="M9 4v13M15 7v13"/></svg>مسیریابی</a>
+          <button class="btn btn--ghost" id="copyAddress" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M15 5.5A2.5 2.5 0 0 0 12.5 3h-6A3.5 3.5 0 0 0 3 6.5v6A2.5 2.5 0 0 0 5.5 15"/></svg>کپی نشانی</button>
+          <button class="btn btn--ghost" id="calButton" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M12 13.5v4.5M9.8 15.8L12 18l2.2-2.2"/></svg>افزودن به تقویم</button>
+        </div>
+      </div>
+
+      <form class="card card--rsvp" id="rsvpForm" novalidate>
+        <h3 class="card__title">پاسخ به دعوت</h3>
+        <p class="card__lede">خواهشمند است حضور ارزشمند خود را پیشاپیش اعلام فرمایید تا افتخار میزبانی شما را به بهترین شکل فراهم آوریم.</p>
+
+        <fieldset class="choice">
+          <legend class="label">آیا تشریف می‌آورید؟</legend>
+          <div class="choice__row">
+            <label class="chip"><input type="radio" name="attendance" value="yes"><span class="chip__body"><span class="chip__mark" aria-hidden="true"></span>با افتخار می‌آیم</span></label>
+            <label class="chip"><input type="radio" name="attendance" value="no"><span class="chip__body"><span class="chip__mark" aria-hidden="true"></span>متأسفانه نمی‌آیم</span></label>
+          </div>
+          <p class="err" id="errAttendance" hidden>لطفاً یکی از دو گزینه را انتخاب کنید.</p>
+        </fieldset>
+
+        <div class="field">
+          <label class="label" for="guestName">نام و نام خانوادگی</label>
+          <input class="input" id="guestName" name="guestName" type="text" maxlength="60" autocomplete="name" enterkeyhint="done" placeholder="مثلاً علی رضایی" aria-describedby="errName">
+          <p class="err" id="errName" hidden>لطفاً نامتان را وارد کنید.</p>
+        </div>
+
+        <div class="field" id="countField">
+          <span class="label" id="countLabel">تعداد نفرات با احتساب خودتان</span>
+          <div class="stepper" role="group" aria-labelledby="countLabel">
+            <button class="stepper__btn" id="countMinus" type="button" aria-label="کم کردن یک نفر">−</button>
+            <output class="stepper__value" id="guestCount" aria-live="polite">۱</output>
+            <button class="stepper__btn" id="countPlus" type="button" aria-label="اضافه کردن یک نفر">+</button>
+          </div>
+        </div>
+
+        <div class="send">
+          <button class="btn btn--primary" id="sendSms" type="submit" data-channel="sms">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9.5L4.5 20V5z"/></svg>ارسال با پیامک</button>
+          <button class="btn btn--wa" id="sendWa" type="button" data-channel="whatsapp">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 12a8.5 8.5 0 1 1-4.2-7.3"/><path d="M3.6 20.4l1.3-4"/></svg>ارسال با واتس‌اپ</button>
+          <button class="btn btn--tg" id="sendTg" type="button" data-channel="telegram" hidden>ارسال با تلگرام</button>
+          <button class="btn btn--ghost" id="sendCopy" type="button" data-channel="copy">کپی متن پاسخ</button>
+        </div>
+
+        <p class="note">چیزی روی اینترنت ذخیره نمی‌شود؛ پیام فقط برای خودتان آماده می‌شود.</p>
+      </form>
+
+      <div class="card card--done" id="rsvpDone" hidden>
+        <div class="done__seal" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+        <h3 class="card__title" id="doneTitle">پاسخ شما ثبت شد</h3>
+        <p class="card__lede" id="doneBody"></p>
+        <button class="textbtn" id="rsvpReset" type="button">ویرایش پاسخ</button>
+      </div>
+
+      <p class="signature">این صفحه با عشق ساخته شده است</p>
+    </div>
+  </section>
+</main>
+
+<!-- ============================ DOCK ============================ -->
+<div class="dock" id="dock">
+  <button class="dock__play" id="autoplayButton" type="button" aria-pressed="false" aria-label="پخش خودکار قصه">
+    <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+    <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5.5v13M15 5.5v13"/></svg>
+  </button>
+
+  <div class="dock__track" aria-hidden="true"><i id="dockProgress"></i></div>
+
+  <button class="dock__skip" id="skipButton" type="button">
+    <span>دعوت‌نامه</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M12 19l-5-5M12 19l5-5"/></svg>
+  </button>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<audio id="music" preload="none" loop playsinline></audio>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
