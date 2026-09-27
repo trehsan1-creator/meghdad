@@ -118,13 +118,15 @@
       img.addEventListener("load", finish, { once: true });
       img.addEventListener("error", finish, { once: true });
     });
-    setTimeout(ready, 4000); // هرگز مهمان را پشت شبکهٔ ضعیف زندانی نمی‌کنیم
+    setTimeout(ready, 1500); // هرگز مهمان را پشت شبکهٔ ضعیف زندانی نمی‌کنیم
   }
 
+  var startHooks = [];
   var started = false;
   function begin(jumpToInvite) {
     if (started) return;
     started = true;
+    startHooks.forEach(function (fn) { try { fn(); } catch (e) {} });
     body.classList.remove("is-booting", "is-locked");
     body.classList.add("is-live");
     if (overture) overture.classList.add("is-gone");
@@ -139,7 +141,24 @@
 
   if (startBtn) startBtn.addEventListener("click", function () { begin(false); });
   var overtureSkip = $("#overtureSkip");
-  if (overtureSkip) overtureSkip.addEventListener("click", function () { begin(true); });
+  if (overtureSkip) overtureSkip.addEventListener("click", function (e) {
+    e.stopPropagation();
+    begin(true);
+  });
+
+  /* هیچ‌کس نباید پشت این پرده گیر کند: لمس هر جای صفحه، اسکرول، یا
+     زدن هر کلیدی هم قصه را شروع می‌کند. */
+  if (overture) {
+    overture.addEventListener("click", function () { begin(false); });
+    ["wheel", "touchmove"].forEach(function (evt) {
+      overture.addEventListener(evt, function () { begin(false); }, { passive: true });
+    });
+    window.addEventListener("keydown", function (e) {
+      if (started) return;
+      if (e.key === "Tab" || e.key === "Shift") return;
+      begin(e.key === "End");
+    });
+  }
 
   /* ------------------------------------------------------------ gyro parallax */
   var gyroX = 0, gyroTarget = 0;
@@ -624,9 +643,7 @@
         }).catch(function () { markOff(); });
       }
 
-      if (startBtn) startBtn.addEventListener("click", playMusic);
-      var skipEl = document.getElementById("overtureSkip");
-      if (skipEl) skipEl.addEventListener("click", playMusic);
+      startHooks.push(playMusic);
 
       musicBtn.addEventListener("click", function () {
         if (audio.paused) {
